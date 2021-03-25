@@ -3,15 +3,13 @@ import numpy
 
  ## Determine if the model is balance,
  # is supply == demand
-def get_balanced_tp(supply, demand, costs, penalties = None):
+def get_balanced_tp(supply, demand, costs):
     total_supply = sum(supply)
     total_demand = sum(demand)
     
     if total_supply < total_demand:
-        if penalties is None:
-            raise Exception('Supply less than demand, penalties required')
         new_supply = supply + [total_demand - total_supply]
-        new_costs = costs + [penalties]
+        new_costs = costs
         return new_supply, demand, new_costs
     if total_supply > total_demand:
         new_demand = demand + [total_supply - total_demand]
@@ -20,7 +18,7 @@ def get_balanced_tp(supply, demand, costs, penalties = None):
     return supply, demand, costs
 
 
-supply = [120, 80, 80]
+supply = [120, 80, 60]
 demand = [150, 70, 40]
 costs = [
     [8, 5, 6],
@@ -49,7 +47,7 @@ def north_west_corner(supply, demand):
             j += 1
     return bfs
 
-supply = [120, 80, 80]
+supply = [120, 80, 60]
 demand = [150, 70, 40]
 bfs = north_west_corner(supply, demand)
 print(bfs)
